@@ -11,6 +11,8 @@ To use it, please import this repo into your own cookbook and run wuthin the rec
 - chef, inspec, chefspec
 - Importing cookbooks
 - Attributes & Templates
+- TDD
+
 
 
 ## Installation
