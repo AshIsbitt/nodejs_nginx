@@ -16,6 +16,10 @@ describe 'nodejs_nginx::default' do
       expect { chef_run }.to_not raise_error
     end
 
+    it 'runs apt get update' do
+      expect(chef_run).to update_apt_update 'update_sources'
+    end
+
     # Install Nginx
     it 'should install nginx' do
       expect(chef_run).to install_package 'nginx'
@@ -40,7 +44,7 @@ describe 'nodejs_nginx::default' do
     end
 
     it "should link from sites-available to sites-enabled" do
-      expect(chef_run).to create_link "/etc/nginx/sites-enabled/proxy.conf.erb"
+      expect(chef_run).to create_link("/etc/nginx/sites-enabled/proxy.conf.erb").with_link_type(:symbolic)
     end
 
      it '/etc/nginx/sites-enabled/default.conf' do
