@@ -11,6 +11,18 @@ service 'nginx' do
   action [:enable, :start]
 end
 
-template '/etc/nginx/sites-available/proxy.conf' do
+# Filipe's
+template '/etc/nginx/sites-available/proxy.conf.erb' do
   source 'proxy.conf.erb'
+  notifies :restart, 'service[nginx]'
+end
+
+link '/etc/nginx/sites-enabled/proxy.conf.erb' do
+  to '/etc/nginx/sites-available/proxy.conf.erb'
+  notifies :restart, 'service[nginx]'
+end
+
+link '/etc/nginx/sites-enabled/default' do
+  action :delete
+  notifies :restart, 'service[nginx]'
 end

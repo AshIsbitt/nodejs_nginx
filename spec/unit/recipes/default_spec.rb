@@ -36,9 +36,15 @@ describe 'nodejs_nginx::default' do
     end
 
     it 'should create a proxy.conf template in /etc/nginx/sites-available' do
-      expect(chef_run).to create_template '/etc/nginx/sites-available/proxy.conf'
+      expect(chef_run).to create_template "/etc/nginx/sites-available/proxy.conf.erb"
     end
 
+    it "should link from sites-available to sites-enabled" do
+      expect(chef_run).to create_link "/etc/nginx/sites-enabled/proxy.conf.erb"
+    end
 
+     it '/etc/nginx/sites-enabled/default.conf' do
+       expect(chef_run).to delete_link('/etc/nginx/sites-enabled/default')
+     end
   end
 end
