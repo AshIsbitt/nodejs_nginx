@@ -6,3 +6,7 @@
 
 package 'nginx'
 package 'nodejs'
+
+service 'nginx' do
+  action [:enable, :start]
+end
