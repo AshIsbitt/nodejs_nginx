@@ -9,12 +9,11 @@ apt_update 'update_sources' do
 end
 
 package 'nginx'
-package 'nodejs'
+
 
 service 'nginx' do
   action [:enable, :start]
 end
-
 # Filipe's
 template '/etc/nginx/sites-available/proxy.conf.erb' do
   source 'proxy.conf.erb'
@@ -32,12 +31,10 @@ link '/etc/nginx/sites-enabled/default' do
 end
 
 # NodeJS
+#package 'nodejs'
 include_recipe "nodejs"
 
-package 'npm'
+#package 'npm'
 
 npm_package 'pm2'
 npm_package 'react'
-
-nodejs_npm 'pm2'
-nodejs_npm 'react'
